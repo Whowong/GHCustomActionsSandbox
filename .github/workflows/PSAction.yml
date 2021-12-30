@@ -7,9 +7,9 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: whowong/GHCustomActionsSandbox/hello-world-powershell-docker-action@776c3de510f1456c7b1e9c862d4cb7c5ce9b6b67
+        uses: whowong/GHCustomActionsSandbox/hello-world-powershell-docker-action@b6b8f729064d062843a33c96352612fd95d08780
         with:
           who_to_greet: 'Mona the Octocat'
       # Use the output from the `hello` step
       - name: Get the output
-        run: echo "Here is the greeting! ${{ steps.hello.outputs.greeting }}"
+        run: echo "Here is the greeting! ${{ steps.hello.outputs.greet }}"
