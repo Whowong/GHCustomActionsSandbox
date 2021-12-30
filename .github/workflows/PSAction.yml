@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: whowong/GHCustomActionsSandbox/hello-world-powershell-docker-action@psv1.4
+        uses: whowong/GHCustomActionsSandbox/hello-world-powershell-docker-action@776c3de510f1456c7b1e9c862d4cb7c5ce9b6b67
         with:
           who_to_greet: 'Mona the Octocat'
       # Use the output from the `hello` step
