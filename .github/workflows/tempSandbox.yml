@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: whowong/GHCustomActionsSandbox/hello-world-tempSandbox@ceed8e904fdec79a1576b11d0850ab39cb80b867
+        uses: whowong/GHCustomActionsSandbox/hello-world-tempSandbox@latest
         with:
           who-to-greet: 'Mona the Octocat'
       # Use the output from the `hello` step
