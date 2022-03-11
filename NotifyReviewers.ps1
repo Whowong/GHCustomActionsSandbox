@@ -1,11 +1,15 @@
 # This script is designed to run off a PR, it will mention the reviewers with a templated message.
 
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory=$true)]
+    $GitHubToken
+)
+
 # Debug Purposes Only.  Displaying All envionrment variables
-dir $env
 #PR ID
 $PRID = $Env:GITHUB_EVENT_NUMBER
 $ownerRepo = $Env:GITHUB_REPOSITORY
-
 
 # Used for local testing
 # $PRID = 11
@@ -15,10 +19,9 @@ $URI = "https://api.github.com/repos/$ownerRepo/pulls/$PRID/requested_reviewers"
 
 $headers = @{
     'content-type' = 'application/json'
-    'authorization'  = "Bearer $Env:SECRETS_GITHUB_TOKEN }}"
+    'authorization'  = "Bearer $GitHubToken }}"
 }
 
-Write-Output "Github Token is $Env:SECRETS_GITHUB_TOKEN"
 # Local Dev Parameters
 # $headers = @{
     
@@ -52,6 +55,5 @@ $body = $body | ConvertTo-Json
 $commentURI = "https://api.github.com/repos/$ownerRepo/issues/$PRID/comments"
 
 Write-Output "Posting to $commentURI"
-
 
 Invoke-RestMethod -Method Post -Headers $headers -Uri $commentURI -Body $body
