@@ -25,11 +25,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      - name: Print PR
-        run: |
-          echo "$GITHUB_EVENT_NUMBER"
-          
+         
       - name: Notify Reviewers
         shell: pwsh
-        run: ./NotifyReviewers.ps1
+        run: ./NotifyReviewers.ps1 -GitHubToken ${{ secrets.GITHUB_TOKEN }}
