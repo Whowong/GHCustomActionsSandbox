@@ -6,33 +6,21 @@ param (
     $GitHubToken
 )
 
-# Debug Purposes Only.  Displaying All envionrment variables
+
 #PR ID
 $PRID = $Env:GITHUB_EVENT_NUMBER
 $ownerRepo = $Env:GITHUB_REPOSITORY
-
-# Used for local testing
-# $PRID = 11
-# $ownerRepo = "Whowong/GHCustomActionsSandbox"
-
-$URI = "https://api.github.com/repos/$ownerRepo/pulls/$PRID/requested_reviewers"
 
 $headers = @{
     'content-type' = 'application/json'
     'authorization'  = "Bearer $GitHubToken"
 }
 
-# Local Dev Parameters
-# $headers = @{
-    
-#     'Accept'         = "application/vnd.github.v3+json"
-#     'Authorization'  = "Token "
-# }
+$URI = "https://api.github.com/repos/$ownerRepo/pulls/$PRID/requested_reviewers"
 
 # Getting the reviewers in the PR
 try {
     Write-Output "Checking $uri to get list of reviewers"
-    Write-Output "This is the temp token $GitHubToken"
     $users = (Invoke-WebRequest -Uri $URI -Headers $headers).content | ConvertFrom-Json
 }
 catch {
@@ -47,11 +35,12 @@ $reviewers = foreach($user in $users.users)
 
 Write-Output "Here are the reviewers we will be notifying $reviewers"
 
+
+#Adding the comment to the PR
 $body = @{
     'body' = "$reviewers - check it!"
 }
 
-#Adding the comment to the PR
 $body = $body | ConvertTo-Json
 $commentURI = "https://api.github.com/repos/$ownerRepo/issues/$PRID/comments"
 
