@@ -1,8 +1,8 @@
 # This script is designed to run off a PR, it will mention the reviewers with a templated message.
 
 #PR ID
-$PRID = ${{ github.event.number }}
-$ownerRepo = ${{ github.repository }}
+$PRID = $Env:GITHUB_EVENT_NUMBER
+$ownerRepo = $Env:GITHUB_REPOSITORY
 
 
 # Used for local testing
@@ -13,7 +13,7 @@ $URI = "https://api.github.com/repos/$ownerRepo/pulls/$PRID/requested_reviewers"
 
 $headers = @{
     'Accept'         = "application/vnd.github.v3+json"
-    'Authorization'  = "token ${{ secrets.GITHUB_TOKEN }}"
+    'Authorization'  = "token $Env:SECRETS_GITHUB_TOKEN }}"
 }
 
 # Getting the reviewers in the PR
