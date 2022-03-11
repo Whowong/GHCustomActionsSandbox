@@ -14,9 +14,10 @@ $ownerRepo = $Env:GITHUB_REPOSITORY
 $URI = "https://api.github.com/repos/$ownerRepo/pulls/$PRID/requested_reviewers"
 
 $headers = @{
-    'Accept'         = "application/vnd.github.v3+json"
-    'Authorization'  = "Bearer $Env:SECRETS_GITHUB_TOKEN }}"
+    'content-type' = 'application/json'
+    'authorization'  = "Bearer $Env:SECRETS_GITHUB_TOKEN }}"
     # Local Dev Parameters
+    #'Accept'         = "application/vnd.github.v3+json"
     #'Authorization'  = "token $Env:SECRETS_GITHUB_TOKEN }}"
 }
 
@@ -46,5 +47,6 @@ $body = $body | ConvertTo-Json
 $commentURI = "https://api.github.com/repos/$ownerRepo/issues/$PRID/comments"
 
 Write-Output "Posting to $commentURI"
+Write-Output "Here are the headers: $headers"
 
 Invoke-RestMethod -Method Post -Headers $headers -Uri $commentURI -Body $body
