@@ -8,7 +8,7 @@ $ownerRepo = $Env:GITHUB_REPOSITORY
 
 
 # Used for local testing
-# $PRID = 1
+# $PRID = 11
 # $ownerRepo = "Whowong/GHCustomActionsSandbox"
 
 $URI = "https://api.github.com/repos/$ownerRepo/pulls/$PRID/requested_reviewers"
@@ -18,13 +18,12 @@ $headers = @{
     'authorization'  = "Bearer $Env:SECRETS_GITHUB_TOKEN }}"
 }
 
-Write-Output "Here are the headers: $headers"
-
+Write-Output "Github Token is $Env:SECRETS_GITHUB_TOKEN"
 # Local Dev Parameters
 # $headers = @{
     
 #     'Accept'         = "application/vnd.github.v3+json"
-#     'Authorization'  = "token "
+#     'Authorization'  = "Token "
 # }
 
 # Getting the reviewers in the PR
@@ -53,5 +52,6 @@ $body = $body | ConvertTo-Json
 $commentURI = "https://api.github.com/repos/$ownerRepo/issues/$PRID/comments"
 
 Write-Output "Posting to $commentURI"
+
 
 Invoke-RestMethod -Method Post -Headers $headers -Uri $commentURI -Body $body
