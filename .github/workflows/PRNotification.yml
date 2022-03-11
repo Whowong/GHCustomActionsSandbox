@@ -23,9 +23,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Display the reviewers
+      - name: Notify Reviewers
         shell: pwsh
-        run: |
-         $foo = Invoke-WebRequest -Uri https://api.github.com/repos/microsoft/WhatTheHack/pulls/364/requested_reviewers
-         $reviewers = $foo | convertfrom-json
-         $reviewers.users.login
+        run: ./NotifyReviewers.ps1
