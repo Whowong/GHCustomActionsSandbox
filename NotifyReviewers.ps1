@@ -15,7 +15,9 @@ $URI = "https://api.github.com/repos/$ownerRepo/pulls/$PRID/requested_reviewers"
 
 $headers = @{
     'Accept'         = "application/vnd.github.v3+json"
-    'Authorization'  = "token $Env:SECRETS_GITHUB_TOKEN }}"
+    'Authorization'  = "Bearer $Env:SECRETS_GITHUB_TOKEN }}"
+    # Local Dev Parameters
+    #'Authorization'  = "token $Env:SECRETS_GITHUB_TOKEN }}"
 }
 
 # Getting the reviewers in the PR
@@ -32,6 +34,8 @@ $reviewers = foreach($user in $users.users)
 {
     "@$($user.login)"
 }
+
+Write-Output "Here are the reviewers we will be notifying $reviewers"
 
 $body = @{
     'body' = "$reviewers - check it!"
