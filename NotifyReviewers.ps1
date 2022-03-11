@@ -1,5 +1,7 @@
 # This script is designed to run off a PR, it will mention the reviewers with a templated message.
 
+# Debug Purposes Only.  Displaying All envionrment variables
+dir $env
 #PR ID
 $PRID = $Env:GITHUB_EVENT_NUMBER
 $ownerRepo = $Env:GITHUB_REPOSITORY
