@@ -18,6 +18,7 @@ $headers = @{
 
 # Getting the reviewers in the PR
 try {
+    Write-Output "Checking $uri to get list of reviewers"
     $users = (Invoke-WebRequest -Uri $URI).content | ConvertFrom-Json
 }
 catch {
@@ -36,4 +37,8 @@ $body = @{
 
 #Adding the comment to the PR
 $body = $body | ConvertTo-Json
-Invoke-RestMethod -Method Post -Headers $headers -Uri https://api.github.com/repos/$ownerRepo/issues/$PRID/comments -Body $body
+$commentURI = "https://api.github.com/repos/$ownerRepo/issues/$PRID/comments"
+
+Write-Output "Posting to $commentURI"
+
+Invoke-RestMethod -Method Post -Headers $headers -Uri $commentURI -Body $body
