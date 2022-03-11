@@ -19,7 +19,7 @@ $URI = "https://api.github.com/repos/$ownerRepo/pulls/$PRID/requested_reviewers"
 
 $headers = @{
     'content-type' = 'application/json'
-    'authorization'  = "Bearer $GitHubToken }}"
+    'authorization'  = "Bearer $GitHubToken"
 }
 
 # Local Dev Parameters
