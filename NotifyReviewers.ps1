@@ -32,6 +32,7 @@ $headers = @{
 # Getting the reviewers in the PR
 try {
     Write-Output "Checking $uri to get list of reviewers"
+    Write-Output "This is the temp token $GitHubToken"
     $users = (Invoke-WebRequest -Uri $URI -Headers $headers).content | ConvertFrom-Json
 }
 catch {
